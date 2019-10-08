@@ -127,7 +127,7 @@ while not victory:
     if check_valid_direction:
         coin_sum = pull_lever(col,row,coin_list)
     if victory:
-        print("Victory! Total coins {}. Moves {}".format(coin_sum, sum(valid_moves)))
+        print("Victory! Total coins {}. Moves {}.".format(coin_sum, sum(valid_moves)))
         victory, coin_list, col, row = play_again()
         if not victory:
             valid_directions = find_directions(col, row)
