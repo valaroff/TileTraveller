@@ -114,6 +114,8 @@ while not victory:
     if victory:
         print("Victory! Total coins {}.".format(coin_sum))
         victory, coin_list, col, row = play_again()
+        valid_directions = find_directions(col, row)
+        print_directions(valid_directions)
     else:
         valid_directions = find_directions(col, row)
         print_directions(valid_directions)
