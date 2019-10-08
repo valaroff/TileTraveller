@@ -106,7 +106,6 @@ def play_again():
         col,row = 1,1
     return victory, coin_list, col, row
 
-    
 
 # The main program starts here
 victory = False
