@@ -131,6 +131,7 @@ while not victory:
         if not victory:
             valid_directions = find_directions(col, row)
             print_directions(valid_directions)
+            coin_sum = pull_lever(col,row,coin_list)
             
     else:
         valid_directions = find_directions(col, row)
