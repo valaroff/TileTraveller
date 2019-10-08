@@ -82,7 +82,7 @@ def play_one_move(col, row, valid_directions,coin_list,valid_moves):
     victory = False
     direction_seq = [NORTH, EAST, SOUTH, WEST]
     direction = random.choice(direction_seq)
-    print('Direction:',direction)
+    print('Direction:', direction)
 
     
     if not direction in valid_directions:
