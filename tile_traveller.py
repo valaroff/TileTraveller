@@ -76,25 +76,27 @@ def pull_lever(col,row, coin_list):
 
     return coin_sum
 
-def play_one_move(col, row, valid_directions,coin_list):
+def play_one_move(col, row, valid_directions,coin_list,valid_moves):
     ''' Plays one move of the game
         Return if victory has been obtained and updated col,row '''
     victory = False
-    direction_seq = ['n','s','w','e']
+    direction_seq = [NORTH, EAST, SOUTH, WEST]
     direction = random.choice(direction_seq)
     print('Direction:',direction)
+
     
     if not direction in valid_directions:
         print("Not a valid direction!")
+        valid_moves = valid_moves
     else:
         col, row = move(direction, col, row)
         victory = is_victory(col, row)
-    return victory, col, row
+        valid_moves.append(1)
+    return victory, col, row, valid_moves
 
 def play_again():
-    yes_no_seq = ['y','n']
-    play_again = random.choice(yes_no_seq)
-    print('Play again (y/n):', play_again)
+    
+    play_again = input('Play again (y/n): ').lower()
 
     if play_again == 'y':
         victory = False
@@ -112,21 +114,23 @@ victory = False
 row = 1
 col = 1
 coin_list=[]
-
-seed = input('Input seed: ')
+valid_moves = []
+num_seed = int(input('Input seed: '))
+random.seed(num_seed)
 
 valid_directions = NORTH
 print_directions(valid_directions)
 
 while not victory:
-    victory, col, row = play_one_move(col, row, valid_directions,coin_list)
-    coin_sum=pull_lever(col,row,coin_list)
+    victory, col, row, valid_moves = play_one_move(col, row, valid_directions,coin_list,valid_moves)
+    coin_sum = pull_lever(col,row,coin_list)
     if victory:
-        print("Victory! Total coins {}.".format(coin_sum))
+        print("Victory! Total coins {}. Moves {}".format(coin_sum, sum(valid_moves)))
         victory, coin_list, col, row = play_again()
         if not victory:
             valid_directions = find_directions(col, row)
             print_directions(valid_directions)
+            
     else:
         valid_directions = find_directions(col, row)
         print_directions(valid_directions)
