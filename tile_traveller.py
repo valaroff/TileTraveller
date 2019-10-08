@@ -88,11 +88,13 @@ def play_one_move(col, row, valid_directions,coin_list,valid_moves):
     if not direction in valid_directions:
         print("Not a valid direction!")
         valid_moves = valid_moves
+        check_valid_direction = False
     else:
         col, row = move(direction, col, row)
         victory = is_victory(col, row)
         valid_moves.append(1)
-    return victory, col, row, valid_moves
+        check_valid_direction= True
+    return victory, col, row, valid_moves, check_valid_direction
 
 def play_again():
     
@@ -122,8 +124,9 @@ valid_directions = NORTH
 print_directions(valid_directions)
 
 while not victory:
-    victory, col, row, valid_moves = play_one_move(col, row, valid_directions,coin_list,valid_moves)
-    coin_sum = pull_lever(col,row,coin_list)
+    victory, col, row, valid_moves, check_valid_direction = play_one_move(col, row, valid_directions,coin_list,valid_moves)
+    if check_valid_direction:
+        coin_sum = pull_lever(col,row,coin_list)
     if victory:
         print("Victory! Total coins {}. Moves {}".format(coin_sum, sum(valid_moves)))
         victory, coin_list, col, row = play_again()
